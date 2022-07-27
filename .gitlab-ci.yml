@@ -1,0 +1,47 @@
+variables:
+  NAMESPACE: mars
+  INGRESS_PORT: 80
+  NAME: perfect-fit
+  DOMAIN: mars.kubernetes.local
+  STORAGE: 50
+
+stages:
+  - image
+  - deploy
+
+  
+image-build:
+    image: docker:latest
+    services:
+      - docker:dind
+    stage: image
+    script:
+        - mkdir -p /deploy/$CI_JOB_ID
+        - mv $CI_PROJECT_DIR/deploy/* /deploy/$CI_JOB_ID
+        - mkdir -p /deploy/$CI_JOB_ID/html
+        - mv $CI_PROJECT_DIR/* /deploy/$CI_JOB_ID/html
+        - cd /deploy/$CI_JOB_ID
+        #- docker run --rm -v /deploy/$CI_JOB_ID/html:/usr/src/app -v /deploy/nodejs:/node -e npm_config_cache=/node/cache -v /deploy/nodejs/modules:/usr/src/app/node_modules node npm install --prefix /usr/src/app
+        #- docker run --rm -v /deploy/$CI_JOB_ID/html:/usr/src/app -v /deploy/nodejs/modules:/usr/src/app/node_modules -w /usr/src/app node node_modules/.bin/gulp
+        #- rm -rf /deploy/$CI_JOB_ID/html/node_modules
+        - rm -rf /deploy/$CI_JOB_ID/html/etc
+        - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+        - docker build -t $CI_REGISTRY_IMAGE:latest .
+        - docker push $CI_REGISTRY_IMAGE:latest
+        - rm -rf /deploy/$CI_JOB_ID
+    only:
+    - master
+    
+release:
+    image: docker:latest
+    stage: deploy
+    script:
+       - apk  update && apk add bash
+       - chmod +x deploy/deploy.sh
+       - bash deploy/deploy.sh $NAME $STORAGE
+    environment:
+      name: release
+      url: http://$NAME.$DOMAIN
+    only:
+      kubernetes: active
+

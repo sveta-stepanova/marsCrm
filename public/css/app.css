@@ -1,0 +1,100 @@
+html {
+    box-sizing: border-box;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#edit-form #form-image {
+    width: 59%;
+    float: left;
+    clear: left;
+    overflow: hidden;
+}
+
+#edit-form #form-data-input {
+    width: 40%;
+    float: right;
+    clear: right;
+}
+
+#edit-form #edit .input-row {
+    float: left;
+    clear: both;
+    margin-bottom: 10px;
+}
+#edit-form #edit .input-row .error {
+    color: #910400;
+    font-size: 12px;
+}
+#edit-form #edit .input-row label {
+    width: 200px;
+    float: left;
+    clear: left;
+}
+#edit-form #edit .input-field-meta {
+    float: left;
+    clear: none;
+    margin-right: 10px;
+}
+#edit-form #edit .input-row input, #edit-form #edit .input-row select {
+    border: 1px #ccc solid;
+}
+#edit-form #edit .input-row input, #edit-form #edit .input-row select, #edit-form #edit .input-row .invalid-state {
+    float: left;
+    clear: right;
+    display: inline-block;
+    vertical-align: middle;
+    width: auto;
+}
+
+#StatusId {
+    display: inline-block;
+    width: auto;
+    margin-right: 10px;
+}
+
+#edit-form #edit #NoSign {
+    margin-left: 22px;
+}
+#edit-form #edit #search {
+    float: left;
+    clear: both;
+}
+#edit-form #existing li {
+    cursor: pointer;
+    /*text-decoration: underline;*/
+    /*color: blue;*/
+}
+#edit-form .resp-valid {
+    background-color: #ccccff;
+}
+#edit-form .resp-invalid {
+    background-color: #ffcccc;
+}
+#edit-form #search {
+    font-size: 12px;
+}
+
+.form-signin {
+    width: 100%;
+    margin-top: 100px;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
+}
+
+#edit-form #edit .input-row input#Sign {
+    width: 30px;
+    height: 30px;
+    border:2px solid #cccccc;
+    margin-left: 23px;
+}
+
+#edit-form #edit .input-row label[for='Sign'] {
+    padding-left: 74px;
+    font-size: 20px;
+}
